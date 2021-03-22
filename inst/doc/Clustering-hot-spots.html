@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Guide to spotoroo</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Guide to spotoroo</h1>
+
+
+
+<p>The hot spot data, or the Moderate Resolution Imaging Spectroradiometer (MODIS) hot spot data, is usually taken from satellite for burning fire detection. An example of this kind of data is the <a href="https://www.eorc.jaxa.jp/ptree/documents/README_H08_L2WLF.txt"><em>Himawari-8 Wild Fire product</em></a> provided by the Japan Aerospace Exploration Agency (JAXA).</p>
+<p>This vignette shows you how to cluster satellite hot spots, detect ignition points and reconstruct fire movement using the <code>spotoroo</code> package.</p>
+<p>Load the <code>spotoroo</code> package using the <code>library()</code> function.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spotoroo)</span></code></pre></div>
+<div id="data-requirements" class="section level1">
+<h1>Data requirements</h1>
+<p>In order to use the spatiotemporal clustering algorithm provided by the <code>spotoroo</code> package, the satellite hot spot data needs to be stored in a <code>list</code> which have at least three fields: the <strong>observed time</strong>, the <strong>longitude</strong> and the <strong>latitude</strong>.</p>
+<p>The <strong>observed time</strong> needs to be an object inherited from one of these classes:</p>
+<ul>
+<li><code>Date</code></li>
+<li><code>POSIXlt</code></li>
+<li><code>POSIXct</code></li>
+<li><code>numeric</code></li>
+</ul>
+<p>Besides, the <strong>longitude</strong> and the <strong>latitude</strong> needs to be in <code>numeric</code>.</p>
+<p>Using the built-in dataset <code>hotspots</code> as an example, it is a <code>data.frame</code> with a <code>lon</code> (<strong>longitude</strong>) <code>numeric</code> column, a <code>lat</code> (<strong>latitude</strong>) <code>numeric</code> column and a <code>obsTime</code> (<strong>observed time</strong>) <code>POSIXct</code> column.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(hotspots)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &#39;data.frame&#39;:    1070 obs. of  3 variables:</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ lon    : num  147 146 143 149 142 ...</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ lat    : num  -37.5 -37.9 -37.8 -37.4 -37.1 ...</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ obsTime: POSIXct, format: &quot;2020-02-01 05:20:00&quot; &quot;2020-01-02 06:30:00&quot; ...</span></span></code></pre></div>
+<p>This dataset contains 1070 selected hot spots in Victoria (Australia) during the 2019-2020 Australian bushfire season. More details about this dataset can be found by using the function <code>help(hotspots)</code></p>
+</div>
+<div id="overview-of-the-hot-spot-data" class="section level1">
+<h1>Overview of the hot spot data</h1>
+<p>A common way to get a better understanding of the hot spot data is to visualize it. This package provides a function <code>plot_vic_map()</code> (package <code>sf</code> needs to be installed) to draw a map of Victoria. It returns a <code>ggplot</code> object, so new layers could be added onto it. Here we use <code>geom_point()</code> to draw red dots for hot spots.</p>
+<p>From the map, we observe that there are approximately <span class="math inline">\(4\)</span> clusters, but we don’t know if they can be further broken down into more clusters. Our goal is to cluster these hot spots into fires in a temporal and spatial manner.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">requireNamespace</span>(<span class="st">&quot;sf&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_vic_map</span>() <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">data =</span> hotspots, <span class="fu">aes</span>(lon, lat), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>If you would like to visualize the hot spots in other areas, you might be able to find the spatial data from the <code>rnaturalearth</code> package and make a similar map using the <code>geom_sf()</code> and <code>ggthemes::theme_map()</code> function. An example is given below.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NOT RUN</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> your_map, <span class="fu">aes</span>(<span class="at">geometry =</span> geometry)) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> your_hotspots, <span class="fu">aes</span>(lon, lat), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  ggthemes<span class="sc">::</span><span class="fu">theme_map</span>()</span></code></pre></div>
+</div>
+<div id="spatiotemporal-clustering-of-hot-spot" class="section level1">
+<h1>Spatiotemporal clustering of hot spot</h1>
+<p><br></p>
+<p><strong><code>hotspot_cluster()</code> is the main function of this package. In most of the cases, you only need to use this function to perform the spatiotemporal clustering algorithm.</strong></p>
+<div id="arguments" class="section level2">
+<h2>Arguments</h2>
+<p>This function has <span class="math inline">\(11\)</span> arguments, which can be divided into four categories:</p>
+<div id="specifications-of-the-dataset" class="section level3">
+<h3>1. specifications of the dataset</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Arguments</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>hotspots</code></td>
+<td align="left">the object that contains the dataset</td>
+</tr>
+<tr class="even">
+<td align="left"><code>lon</code></td>
+<td align="left">the name of the longitude column</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>lat</code></td>
+<td align="left">the name of the latitude column</td>
+</tr>
+<tr class="even">
+<td align="left"><code>obsTime</code></td>
+<td align="left">the name of the observed time column</td>
+</tr>
+</tbody>
+</table>
+<p>The first four arguments are pretty straight forward, you only need to provide the dataset object and its corresponding column names.</p>
+</div>
+<div id="specifications-of-the-parameters-of-the-clustering-algorithm" class="section level3">
+<h3>2. specifications of the parameters of the clustering algorithm</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Arguments</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>activeTime</code></td>
+<td align="left">the time tolerance</td>
+</tr>
+<tr class="even">
+<td align="left"><code>adjDist</code></td>
+<td align="left">the distance tolerance</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>minPts</code></td>
+<td align="left">the minimum number of hot spots</td>
+</tr>
+<tr class="even">
+<td align="left"><code>minTime</code></td>
+<td align="left">the minimum length of time</td>
+</tr>
+</tbody>
+</table>
+<p>These four arguments control the clustering process.</p>
+<ul>
+<li><p><code>activeTime</code> could be interpreted as <strong>the time a fire can stay smouldering but undetectable by satellite before flaring up again</strong>. For example, if <code>activeTime</code> <span class="math inline">\(= 24\)</span>, then the time tolerance is <span class="math inline">\(24\)</span> time indexes.</p></li>
+<li><p><code>adjDist</code> could be interpreted as <strong>the maximum intra-cluster distance between a hot spot and its nearest hot spot</strong>. For example, if <code>adjDist</code> <span class="math inline">\(= 3\)</span>, then the distance tolerance is <span class="math inline">\(3\)</span> km. <em>However, in some very special cases, the intra-cluster distance between a hot spot and its nearest hot spot will exceed this threshold</em>. You can learn more about this parameter and the algorithm by using the <code>help(hotspot_cluster)</code> function.</p></li>
+<li><p><code>minPts</code> is <strong>the minimum number of hot spots in a cluster</strong>. For example, if <code>minPts</code> is <span class="math inline">\(4\)</span>, then any cluster with less than <span class="math inline">\(4\)</span> hot spots will be treated as noise.</p></li>
+<li><p><code>minTime</code> is <strong>the minimum length of time of a cluster</strong>. For example, if <code>minTime</code> is <span class="math inline">\(3\)</span>, then any cluster lasts shorter than <span class="math inline">\(3\)</span> time indexes will be treated as noise.</p></li>
+</ul>
+<p>In practice, we usually don’t have knowledge about the parameters <code>activeTime</code> and <code>adjDist</code>, but in general, the number of clusters will decrease when you increase these two parameters.</p>
+<p>Comparing the clustering results under different settings is an available method to determine these two parameters. We will show how to do this in the section <a href="#additional-topic-choice-of-parameters">Additional topic: Choice of parameters</a>.</p>
+<p>In terms of <code>minPts</code> and <code>minTime</code>, they depend on your personal preference of noise reduction. And, the number of clusters will often decrease when you increase these two parameters.</p>
+<p>A sensible choice of these two parameters is <code>minPts</code> <span class="math inline">\(\in [3,10]\)</span> and <code>minTime</code> <span class="math inline">\(\in [1~hour, 12~hours]\)</span></p>
+</div>
+<div id="specification-of-the-calculation-of-the-ignition-points" class="section level3">
+<h3>3. specification of the calculation of the ignition points</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Arguments</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>ignitionCenter</code></td>
+<td align="left">method of the calculation of the ignition points</td>
+</tr>
+</tbody>
+</table>
+<p>For a cluster, if <code>ignitionCenter</code> is “mean”, the centroid of the earliest hot spots will be used as the ignition point, if <code>ignitionCenter</code> is “median”, the median longitude and the median latitude of these hot spots will be used as the ignition point.</p>
+<p>In usual, there is no significant difference between these two methods, so we recommend to set <code>ignitionCenter = &quot;mean&quot;</code>.</p>
+</div>
+<div id="specifications-of-the-transformation-of-the-observed-time" class="section level3">
+<h3>4. specifications of the transformation of the observed time</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Arguments</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>timeUnit</code></td>
+<td align="left">the unit of time</td>
+</tr>
+<tr class="even">
+<td align="left"><code>timeStep</code></td>
+<td align="left">the number of time unit one time index contains</td>
+</tr>
+</tbody>
+</table>
+<p>Due to the design of the algorithm, the observed time needs to be transformed to discrete time index. Available time units are “d” (days), “h” (hours), “m” (minutes), “s” (seconds) and “n” (numeric). <code>timeUnit = &quot;n&quot;</code> will only be accepted when the observed time is already a <code>numeric</code> vector.</p>
+<p>For example, if <code>timeUnit</code> is “h” and <code>timeStep</code> is <span class="math inline">\(2\)</span>, then the difference between time index <span class="math inline">\(1\)</span> and time index <span class="math inline">\(2\)</span> is <span class="math inline">\(2\)</span> hours.</p>
+</div>
+</div>
+<div id="usage" class="section level2">
+<h2>Usage</h2>
+<p>With specifications of all the arguments, the <code>hotspot_cluster()</code> can be used as below. Generally, you need to use an object to catch the return.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">hotspot_cluster</span>(<span class="at">hotspots =</span> hotspots,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">lon =</span> <span class="st">&quot;lon&quot;</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">lat =</span> <span class="st">&quot;lat&quot;</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">obsTime =</span> <span class="st">&quot;obsTime&quot;</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">activeTime =</span> <span class="dv">24</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">adjDist =</span> <span class="dv">3000</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                          <span class="at">minPts =</span> <span class="dv">4</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                          <span class="at">minTime =</span> <span class="dv">3</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                          <span class="at">ignitionCenter =</span> <span class="st">&quot;mean&quot;</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                          <span class="at">timeUnit =</span> <span class="st">&quot;h&quot;</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                          <span class="at">timeStep =</span> <span class="dv">1</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -------------------------------- SPOTOROO 0.1.0 --------------------------------</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -- Calling Core Function : `hotspot_cluster()` --</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -- 1 time index = 1 hours</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; v Transform observed time &gt; time indexes</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i 970 time indexes found</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -- activeTime = 24 time indexes | adjDist = 3000 meters</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; v Cluster</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i 16 clusters found (including noise)</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -- minPts = 4 hot spots | minTime = 3 time indexes</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; v Handle noise</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i 6 clusters left</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i noise proportion : 0.935 %</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -- ignitionCenter = &#39;mean&#39;</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; v Compute ignition points for clusters</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i average hot spots : 176.7</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i average duration : 131.9 hours</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -- Time taken = 0 mins 3 secs for 1070 hot spots</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i 0.003 secs per hot spot</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
+<p>Messages produced by this function tell you some important information of the clustering results such as the number of discrete time indexes, the number of clusters and the proportion of noise. If you would like to silent this function, you could wrap this function with the <code>suppressMessages()</code> function like the example given below.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NOT RUN</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">hotspot_cluster</span>())</span></code></pre></div>
+</div>
+<div id="returns" class="section level2">
+<h2>Returns</h2>
+<p>The <code>hotspot_cluster()</code> function returns a <code>spotoroo</code> object, which is actually a <code>list</code> contains a <code>data.frame</code> called <code>hotpsots</code>, a <code>data.frame</code> called <code>ignition</code> and a <code>list</code> called <code>setting</code>.</p>
+<p>If you evaluate the <code>result</code> or print it, you will get a concise description of the clustering results. Here, according to the output, we know there are <span class="math inline">\(6\)</span> clusters in the clustering results.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>result</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i spotoroo object: 6 clusters | 1070 hot spots (including noise points)</span></span></code></pre></div>
+<p>You can access these two <code>data.frame</code>s in the usual way.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(result<span class="sc">$</span>hotspots, <span class="dv">2</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      lon       lat             obsTime timeID membership noise distToIgnition</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 147.46 -37.46000 2020-02-01 05:20:00    809         -1  TRUE              0</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 146.48 -37.93999 2020-01-02 06:30:00     90         -1  TRUE              0</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   distToIgnitionUnit timeFromIgnition timeFromIgnitionUnit</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1                  m   718.8333 hours                    h</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2                  m   718.8333 hours                    h</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(result<span class="sc">$</span>ignition, <span class="dv">2</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   membership    lon    lat             obsTime timeID obsInCluster</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1          1 149.30 -37.77 2019-12-29 13:10:00      1          146</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2          2 146.72 -36.84 2020-01-08 01:40:00    229          165</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   clusterTimeLen clusterTimeLenUnit</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 116.1667 hours                  h</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 148.3333 hours                  h</span></span></code></pre></div>
+<p>The <code>hotspots</code> dataset contains information of each hot spot. Particularly, the <code>membership</code> column is the membership label column. <span class="math inline">\(-1\)</span> represents noise.</p>
+<p>The <code>ignition</code> dataset contains information of each cluster. Similarly, the <code>membership</code> column is the membership label column. And the <code>lon</code> and <code>lat</code> are the coordinate information of the ignition points.</p>
+<div id="extract-a-subset-of-clusters" class="section level3">
+<h3>Extract a subset of clusters</h3>
+<p>If you would like to extract a subset of clusters from the results or merge the <code>hotspots</code> and <code>ignition</code> dataset, you could the function <code>extract_fire()</code>.</p>
+<p>You could choose to extract all clusters along with noise points by setting <code>cluster = &quot;all&quot;</code> and <code>noise = TRUE</code>. This will merge the <code>hotspots</code> and <code>ignition</code> dataset.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge the `hotspots` and `ignition` dataset</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>merged_result <span class="ot">&lt;-</span> <span class="fu">extract_fire</span>(result, <span class="at">cluster =</span> <span class="st">&quot;all&quot;</span>, <span class="at">noise =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>You could also only extract a subset of clusters without any noise by providing a vector of membership labels to the argument <code>cluster</code> and set <code>noise = FALSE</code>. This will merge the <code>hotspots</code> and <code>ignitoin</code> dataset but filtering out the noise points and selecting needed clusters.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge the `hotspots` and `ignition` dataset</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Select cluster 2 and 3 and filter out noise</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>cluster_2_and_3 <span class="ot">&lt;-</span> <span class="fu">extract_fire</span>(result, <span class="at">cluster =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), <span class="at">noise =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="additional-topic-choice-of-parameters" class="section level2">
+<h2>Additional topic: Choice of parameters</h2>
+<p>In principal, the parameters <code>activeTime</code> and <code>adjDist</code> are determined using the professional knowledge of fire behaviour, but in practice, we generally don’t know much about them.</p>
+<p>In the rest of the section, we will show one of the methods to choose proper values for these two parameters.</p>
+<p>We first set <code>minPts = 4</code> and <code>minTime = 3</code>. You could set different values for <code>minPts</code> and <code>minTime</code> if you like.</p>
+<p>We then could do a grid search for <code>activeTime</code> and <code>adjDist</code> in a sensible range. Here, we set <code>adjDist</code> <span class="math inline">\(\in\)</span> <code>[500,1000,1500,2000,2500,3000,3500,4000]</code> and <code>activeTime</code> <span class="math inline">\(\in\)</span> <code>[6,12,18,24,30,36,42,48]</code>. For each pair of <code>activeTime</code> and <code>adjDist</code>, we record the proportion of noise as the metric for comparison.</p>
+<p>The following code does the calculation. It may takes around 10 minutes to run. You could have a try if you like.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NOT RUN</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTICE</span><span class="co">: MAY TAKE AROUND 10 MINS TO RUN THIS CODE BLOCK</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>noise_prop <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (adjDist <span class="cf">in</span> <span class="fu">seq</span>(<span class="dv">500</span>, <span class="dv">4000</span>, <span class="dv">500</span>)) {</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (activeTime <span class="cf">in</span> <span class="fu">seq</span>(<span class="dv">6</span>, <span class="dv">48</span>, <span class="dv">6</span>)) {</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    result <span class="ot">&lt;-</span> <span class="fu">suppressMessages</span>(<span class="fu">hotspot_cluster</span>(<span class="at">hotspots =</span> hotspots,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">lon =</span> <span class="st">&quot;lon&quot;</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">lat =</span> <span class="st">&quot;lat&quot;</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">obsTime =</span> <span class="st">&quot;obsTime&quot;</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">activeTime =</span> activeTime,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">adjDist =</span> adjDist,</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">minPts =</span> <span class="dv">4</span>,</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">minTime =</span> <span class="dv">3</span>,</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">ignitionCenter =</span> <span class="st">&quot;mean&quot;</span>,</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">timeUnit =</span> <span class="st">&quot;h&quot;</span>,</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">timeStep =</span> <span class="dv">1</span>))</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    noise_prop <span class="ot">&lt;-</span> <span class="fu">c</span>(noise_prop, <span class="fu">mean</span>(result<span class="sc">$</span>hotspots<span class="sc">$</span>noise))</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">activeTime =</span> <span class="fu">seq</span>(<span class="dv">6</span>, <span class="dv">48</span>, <span class="dv">6</span>),</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>                   <span class="at">adjDist =</span> <span class="fu">seq</span>(<span class="dv">500</span>, <span class="dv">4000</span>, <span class="dv">500</span>))</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>tab<span class="sc">$</span>noise_prop <span class="ot">&lt;-</span> noise_prop</span></code></pre></div>
+<p>With the proportion of noise, we could make two line plots to reveal the relationships between proportion of noise, <code>adjDist</code> and <code>activeTime</code>.</p>
+<p>It works like the <a href="https://en.wikipedia.org/wiki/Scree_plot">scree plot</a> used in principal component analysis. We want to keep clusters separate without introducing too much noise.</p>
+<p>In the first plot, most of the significant drops of proportion of noise are observed when <code>adjDist</code> less than 2500 metres. Therefore, <code>adjDist = 2500</code> is a reasonable choice.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tab) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(adjDist, noise_prop, <span class="at">color =</span> <span class="fu">as.factor</span>(activeTime))) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Noise Propotion&quot;</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">col =</span> <span class="st">&quot;activeTime&quot;</span>) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">500</span>, <span class="dv">4000</span>, <span class="dv">500</span>))</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>In the second plot, most of the significant drops of proportion of noise are observed when <code>activeTime</code> less than 24 hours. Therefore, <code>activeTime = 24</code> is a reasonable choice.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tab) <span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(activeTime, noise_prop, <span class="at">color =</span> <span class="fu">as.factor</span>(adjDist))) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Noise Propotion&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">col =</span> <span class="st">&quot;adjDist&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">6</span>, <span class="dv">48</span>, <span class="dv">6</span>))</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+</div>
+<div id="exploring-the-spatiotemporal-clustering-results" class="section level1">
+<h1>Exploring the spatiotemporal clustering results</h1>
+<p>The package provides some useful functions to explore the clustering results.</p>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<p>You could make a brief summary of the clustering results.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary_spotoroo</span>(result)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -------------------------------- SPOTOROO 0.1.0 --------------------------------</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -- Calling Core Function : `summary_spotoroo()` --</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; CLUSTERS: ALL</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; OBSERVATIONS: 1070</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; FROM: 2019-12-29 13:10:00</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; TO:   2020-02-07 22:50:00</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -- Clusters</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i Number of clusters: 6</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Observations in cluster</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         Min.     1st Qu.        Mean     3rd Qu.        Max.</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        111.0       131.0       176.7       233.2       256.0</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Duration of cluster (hours)</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         Min.     1st Qu.        Mean     3rd Qu.        Max.</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        111.2       118.2       131.9       146.1       148.3</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -- Hot spots (excluding noise)</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i Number of hot spots: 1060</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Distance to ignition points (m)</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         Min.     1st Qu.        Mean     3rd Qu.        Max.</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          0.0      2840.3      5058.2      6981.6     13452.7</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time from ignition (hours)</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         Min.     1st Qu.        Mean     3rd Qu.        Max.</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          0.0        25.2        62.5        98.2       148.3</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -- Noise</span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i Number of noise points: 10 (0.93 %)</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
+<p>Or make a brief summary of a subset of clusters by providing a vector of membership labels to the <code>cluster</code> argument.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary_spotoroo</span>(result, <span class="at">cluster =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span></code></pre></div>
+<div id="called-by-summary" class="section level3">
+<h3>Called by <code>summary()</code></h3>
+<p>For convenience, the <code>summary_spotoroo()</code> can be called by the <code>summary()</code> function.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(result)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(result, <span class="at">cluster =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span></code></pre></div>
+</div>
+</div>
+<div id="plot" class="section level2">
+<h2>Plot</h2>
+<p>You could produce a plot of the clustering results. There are three types of plots, which are “def” (default), “mov” (fire movement) and “timeline” (timeline).</p>
+<div id="default" class="section level3">
+<h3>Default</h3>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_spotoroo</span>(result, <span class="at">type =</span> <span class="st">&quot;def&quot;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="timeline" class="section level3">
+<h3>Timeline</h3>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_spotoroo</span>(result, <span class="at">type =</span> <span class="st">&quot;timeline&quot;</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; This version of bslib is designed to work with shiny version 1.5.0.9007 or higher.</span></span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="fire-movement" class="section level3">
+<h3>Fire movement</h3>
+<p>The fire movement is calculated from the <code>get_fire_mov()</code> function.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_spotoroo</span>(result, <span class="at">type =</span> <span class="st">&quot;mov&quot;</span>, <span class="at">step =</span> <span class="dv">6</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="add-a-background" class="section level3">
+<h3>Add a background</h3>
+<p>If you have a background <code>ggplot</code> object, you can let the function plots onto it.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">requireNamespace</span>(<span class="st">&quot;sf&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_spotoroo</span>(result, <span class="at">bg =</span> <span class="fu">plot_vic_map</span>())</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_spotoroo</span>(result, <span class="at">type =</span> <span class="st">&quot;mov&quot;</span>, <span class="at">bg =</span> <span class="fu">plot_vic_map</span>(), <span class="at">step =</span> <span class="dv">6</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>More details about the usage of this function can be found by using the <code>help(plot_spotoroo)</code> function.</p>
+</div>
+<div id="called-by-plot" class="section level3">
+<h3>Called by <code>plot()</code></h3>
+<p>For convenience, the <code>plot_spotoroo()</code> can be called by the <code>plot()</code> function.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">type =</span> <span class="st">&quot;timeline&quot;</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">type =</span> <span class="st">&quot;mov&quot;</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">bg =</span> <span class="fu">plot_vic_map</span>())</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">type =</span> <span class="st">&quot;mov&quot;</span>, <span class="at">bg =</span> <span class="fu">plot_vic_map</span>())</span></code></pre></div>
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
