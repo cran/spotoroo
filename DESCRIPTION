@@ -1,6 +1,6 @@
 Package: spotoroo
 Title: Spatiotemporal Clustering of Satellite Hot Spot Data
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: 
     c(person(given = "Weihao",
            family = "Li",
@@ -30,10 +30,10 @@ Suggests: sf (>= 0.7-3), testthat (>= 3.0.0), covr, knitr, rmarkdown
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2021-03-21 08:18:40 UTC; TengMCing
+Packaged: 2021-03-31 08:27:44 UTC; patrickli
 Author: Weihao Li [aut, cre] (<https://orcid.org/0000-0003-4959-106X>),
   Di Cook [ctb] (<https://orcid.org/0000-0002-3813-7155>),
   Emily Dodwell [ctb]
 Maintainer: Weihao Li <llreczx@gmail.com>
 Repository: CRAN
-Date/Publication: 2021-03-22 15:30:02 UTC
+Date/Publication: 2021-03-31 10:00:03 UTC

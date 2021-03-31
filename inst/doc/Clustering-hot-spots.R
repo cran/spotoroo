@@ -134,8 +134,12 @@ plot_spotoroo(result, type = "mov", step = 6)
 
 ## -----------------------------------------------------------------------------
 if (requireNamespace("sf", quietly = TRUE)) {
-    plot_spotoroo(result, bg = plot_vic_map())
-    plot_spotoroo(result, type = "mov", bg = plot_vic_map(), step = 6)
+  plot_spotoroo(result, bg = plot_vic_map())
+}
+
+## -----------------------------------------------------------------------------
+if (requireNamespace("sf", quietly = TRUE)) {
+  plot_spotoroo(result, type = "mov", bg = plot_vic_map(), step = 6)
 }
 
 ## ----eval = FALSE-------------------------------------------------------------
