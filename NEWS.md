@@ -1,3 +1,9 @@
+# spotoroo 0.1.2
+
+* Fixed a bug in `hotspot_to_ignition` that caused problems with time calculation of noise points.
+* Fixed a bug in `plot_timeline` that caused problems with counting number of fires.
+* Fixed the aspect ratio of `plot_fire_mov`. It now equals to `cos(mean(range(lat))*pi/180)`. 
+
 # spotoroo 0.1.1
 
 * Fixed a bug in `plot_vic_map()` that caused problems with older version of spatial packages.

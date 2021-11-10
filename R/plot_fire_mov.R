@@ -204,8 +204,8 @@ plot_fire_mov <- function(result,
   if (hotspot) {
 
     temp_data <- filter(result$hotspots, include) %>%
-      mutate(lon_jit = jitter(lon, factor = 1),
-             lat_jit = jitter(lat, factor = 1))
+      mutate(lon_jit = jitter(lon, factor = 2.5),
+             lat_jit = jitter(lat, factor = 2.5))
 
 
     p <- p + geom_point(data = temp_data,
@@ -243,7 +243,7 @@ plot_fire_mov <- function(result,
     p <- p + geom_path(data = temp_data,
                        aes(lon, lat),
                        col = "black",
-                       linetype = 2)
+                       linetype = 1)
   }
 
   # draw end point
@@ -259,8 +259,9 @@ plot_fire_mov <- function(result,
 
 
 
-  # facet
-  p <- p + ggplot2::facet_wrap(~membership, scales = "free")
+  # facet and adjust aspect ratio
+  p <- p + ggplot2::facet_wrap(~membership, scales = "free") +
+    ggplot2::theme(aspect.ratio = cos(mean(range(filter(result$hotspots, include)$lat))*pi/180))
 
 
   # edit subtitle
@@ -314,7 +315,7 @@ plot_fire_mov <- function(result,
       theme(legend.position = "none") +
       scale_color_brewer(palette = "Set1")
 
-    p <- patchwork::wrap_plots(bg, p)
+    p <- patchwork::wrap_plots(bg, p, widths = c(1, 1))
 
   } else {
 
