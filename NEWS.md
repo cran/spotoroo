@@ -1,3 +1,9 @@
+# spotoroo 0.1.3
+
+* Fixed a bug in `plot_timeline` that draws incorrect noise.
+* Fixed a bug in `hotspot_cluster` that printed incorrect plural form of a noun via `cli`.
+* Fixed a bug in `summary_spotoroo` that printed incorrect plural form of a noun via `cli`.
+
 # spotoroo 0.1.2
 
 * Fixed a bug in `hotspot_to_ignition` that caused problems with time calculation of noise points.

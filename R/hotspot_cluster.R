@@ -187,7 +187,7 @@ hotspot_cluster <- function(hotspots,
                                         "margin-bottom" = 0,
                                         color = "cyan",
                                         "font-color" = "black")))
-  cli::cli_rule(center = "{.def SPOTOROO 0.1.2}")
+  cli::cli_rule(center = "{.def SPOTOROO 0.1.3}")
   cli::cli_h2("Calling Core Function : {.fn hotspot_cluster}")
 
   # more safety checks and handle time col
@@ -257,7 +257,7 @@ hotspot_cluster <- function(hotspots,
 
   cli::cli_h3(paste("{.field Time taken} = {.val {taken_mins}} {.unit min{?s}}",
                       "{.val {taken_secs}} {.unit sec{?s}}",
-                      "{.side for} {.val {length(lon)}} hot spots"))
+                      "{.side for} {.val {length(lon)}} hot spot{?s}"))
   cli::cli_alert_info("{.val {round(total_secs/length(lon), 3)}} {.unit sec{?s}} {.side per} hot spot")
   cli::cli_rule()
   cli::cli_end()
