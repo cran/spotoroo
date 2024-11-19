@@ -1,7 +1,7 @@
-64c5ff6061f6c6d0329a87beb22c8744 *DESCRIPTION
+31c9fabc5598cf74192f238493a3c07b *DESCRIPTION
 27a6a7eb0a2307f5e633bc0457a88bfe *LICENSE
 66e9f63e55bd0301d972709d2233f9ee *NAMESPACE
-d1cbb4b20aa2bcb25df2018e0cfada9f *NEWS.md
+ddf90221d073e655033e637518162efd *NEWS.md
 298ebd0f97c7f49efc106b6a9451d4a2 *R/adjust_membership.R
 4cfb6b2e7c2a3e7b9d036826d6082588 *R/data.R
 d62fb4b1825360a47d45177617090bde *R/define_interval.R
@@ -17,7 +17,7 @@ e38f9ec579d5da6fa947d4354e39b529 *R/ignition_point.R
 89bab6cbcdb567d38a31da7455cb44a0 *R/local_clustering.R
 ef60ae035e8b8dd27ba0e1d01a05ddfb *R/nearby_hotspot.R
 7b7860cc8c9effdb1f4e8348b5b369ce *R/plot_def.R
-192621dddc6baecdf3c4c620d7ea41e0 *R/plot_fire_mov.R
+e28daabf3a95e164503b4641d08d8283 *R/plot_fire_mov.R
 2b7fb808b8cc91a8b526a4d49b7e1de7 *R/plot_spotoroo.R
 26fb66d04f2c0e767a32cd335be0e1cf *R/plot_timeline.R
 174ad098aab920f0b254cf387c0ffaa3 *R/plot_timeline_only_noise.R
@@ -32,9 +32,9 @@ df6cc46bc7fae1a55b713f3d5065b35a *R/spotoroo-package.R
 2365cf156e6bffde5ef0e37dd498b89a *data/hotspots.rda
 afd12890a1d3db7735106ebdee051e31 *data/vic_map.rda
 6e77255b40a0200317b3fa5997888626 *inst/CITATION
-882dfe08463a4d8839d4379a4b6a26b1 *inst/doc/Clustering-hot-spots.R
+1941725ce8faea63868bc1ef5c3d88f1 *inst/doc/Clustering-hot-spots.R
 2c01c41e8d6210a57c89644693bf5739 *inst/doc/Clustering-hot-spots.Rmd
-86561aa9752ce43d29b114b48c2a6e57 *inst/doc/Clustering-hot-spots.html
+9afed5d2d93463957c323c558a160362 *inst/doc/Clustering-hot-spots.html
 10031169a0bef6bf87a93088b68d7ab6 *man/dist_point_to_vector.Rd
 003df61d4b7e7d054ed3ee3c5380cb30 *man/extract_fire.Rd
 873e9430a48c83b87546091caf92e3a5 *man/figures/README-unnamed-chunk-10-1.png
@@ -49,7 +49,7 @@ e48e96d51dd1c50138246a1f708e8053 *man/figures/README-unnamed-chunk-41-1.png
 e9bbfab72404a55020ce0f125a62c654 *man/figures/README-unnamed-chunk-5-1.png
 32a6af4e7ea77b72edd8e25560098e98 *man/figures/README-unnamed-chunk-6-1.png
 681b886d766024a762a908047cb76fad *man/figures/README-unnamed-chunk-7-1.png
-2ae7e4d2887bf95c970f296327c7ee1b *man/figures/README-unnamed-chunk-8-1.png
+fb3eb2be031a8564383a8bd1570a886a *man/figures/README-unnamed-chunk-8-1.png
 7e9c96672dfcc36094c574d36c157055 *man/figures/README-unnamed-chunk-9-1.png
 2ed36bcafb4e0d66fe9a565823011010 *man/get_fire_mov.Rd
 eb4039d10518a2da5f7ca6777a9789f8 *man/global_clustering.Rd
